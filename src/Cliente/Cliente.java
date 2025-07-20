@@ -41,7 +41,7 @@ public class Cliente extends JFrame {
         }
     }
 
-    // Constructor para uso general (aunque ahora usaremos el otro)
+    // Constructor para uso general
     public Cliente() {
         initComponents();
         cargarMenuEnTabla();
@@ -51,11 +51,11 @@ public class Cliente extends JFrame {
     public Cliente(int idMesa) {
         initComponents();
         this.mesaId = idMesa; // Guardamos el ID de la mesa
-        setTitle("Pedido para Mesa #" + idMesa); // Actualizamos el título de la ventana
+        setTitle("Pedido para Mesa #" + idMesa);
         cargarMenuEnTabla();
     }
 
-    // Método para inicializar todos los componentes y configuraciones de la ventana
+    // Metodo para inicializar todos los componentes y configuraciones de la ventana
     private void initComponents() {
         setTitle("Menú SIFood");
         setContentPane(ClientePanel);
@@ -83,9 +83,9 @@ public class Cliente extends JFrame {
             String sqlPedido = "INSERT INTO pedidos (mesa_id, usuario_id_mesero, turno_id, estado_id, numero_comensales) VALUES (?, ?, ?, ?, ?)";
             long pedidoId;
             try (PreparedStatement pstmtPedido = conn.prepareStatement(sqlPedido, Statement.RETURN_GENERATED_KEYS)) {
-                // AHORA USAMOS EL ID DE MESA CORRECTO
+                // ID DE MESA CORRECTO
                 pstmtPedido.setInt(1, this.mesaId);
-                // Valores de ejemplo para los otros campos (esto se puede mejorar después)
+                // Valores de ejemplo para los otros campos
                 pstmtPedido.setInt(2, 2); // Mesero 'agomez_mesera'
                 pstmtPedido.setInt(3, 1); // Turno 'Almuerzo'
                 pstmtPedido.setInt(4, 1); // Estado 'Solicitado'
@@ -148,104 +148,56 @@ public class Cliente extends JFrame {
 
         tableMenu.setModel(tableModel);
 
-
-
         String sql = "SELECT nombre, descripcion, precio FROM platos WHERE disponible = true ORDER BY nombre";
 
-
-
         try (Connection conn = DatabaseConnection.getConnection();
-
              PreparedStatement pstmt = conn.prepareStatement(sql);
-
              ResultSet rs = pstmt.executeQuery()) {
 
-
-
             while (rs.next()) {
-
                 Object[] fila = {
-
                         rs.getString("nombre"),
-
                         rs.getString("descripcion"),
-
                         rs.getDouble("precio"),
-
                         "Añadir" // Texto del botón
-
                 };
-
                 tableModel.addRow(fila);
-
             }
-
-
-
         } catch (SQLException e) {
-
             e.printStackTrace();
-
             JOptionPane.showMessageDialog(this, "Error al cargar el menú.", "Error", JOptionPane.ERROR_MESSAGE);
-
         }
 
-
-
-// --- Lógica del Botón "Añadir" ---
+        // --- Lógica del Botón "Añadir" ---
 
         Action accionAñadir = new AbstractAction() {
 
             public void actionPerformed(ActionEvent e) {
-
                 int fila = Integer.parseInt(e.getActionCommand());
-
                 String nombrePlato = (String) tableMenu.getValueAt(fila, 0);
-
                 double precioPlato = (Double) tableMenu.getValueAt(fila, 2);
 
-
-
-// Preguntar la cantidad
-
+                // Preguntar la cantidad
                 String cantidadStr = JOptionPane.showInputDialog(
-
                         Cliente.this,
-
                         "¿Cuántas unidades de '" + nombrePlato + "' desea añadir?",
-
                         "Añadir al Carrito",
-
                         JOptionPane.QUESTION_MESSAGE
-
                 );
 
-
-
                 if (cantidadStr != null && !cantidadStr.isEmpty()) {
-
                     try {
-
                         int cantidad = Integer.parseInt(cantidadStr);
-
                         if (cantidad > 0) {
-
-// Añadir al carrito de memoria
-
+                            // Añadir al carrito de memoria
                             OrderItem nuevoItem = new OrderItem(nombrePlato, cantidad, precioPlato);
-
                             carritoDeCompras.add(nuevoItem);
 
-// Actualizar el carrito visual
-
+                            // Actualizar el carrito visual
                             actualizarVistaCarrito();
-
                         }
-
                     } catch (NumberFormatException ex) {
-
                         JOptionPane.showMessageDialog(Cliente.this, "Por favor, ingrese un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
-
                     }
 
                 }
@@ -254,38 +206,24 @@ public class Cliente extends JFrame {
 
         };
 
-
-
         ButtonColumn botonEnTabla = new ButtonColumn(tableMenu, accionAñadir, 3);
-
     }
 
 
     private void actualizarVistaCarrito() {
         // Limpiamos el modelo visual
-
         carritoListModel.clear();
-
         double total = 0;
 
-// Volvemos a llenar el modelo visual con los datos del carrito en memoria
-
+        // Volvemos a llenar el modelo visual con los datos del carrito en memoria
         for (OrderItem item : carritoDeCompras) {
-
             carritoListModel.addElement(item.toString());
-
             total += item.cantidad * item.precioUnitario;
-
         }
 
-
-
         if (!carritoDeCompras.isEmpty()) {
-
             carritoListModel.addElement("--------------------------------");
-
             carritoListModel.addElement(String.format("TOTAL: $%.2f", total));
-
         }
 
     }

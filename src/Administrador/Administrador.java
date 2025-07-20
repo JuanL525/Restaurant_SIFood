@@ -1,6 +1,6 @@
 package Administrador;
 
-import utils.DatabaseConnection; // Importamos nuestra clase de conexión
+import utils.DatabaseConnection;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -43,9 +43,7 @@ public class Administrador extends JFrame {
             }
         });
 
-        // --- Cargar los datos iniciales ---
         cargarEmpleados();
-
         setVisible(true);
     }
 
@@ -84,7 +82,7 @@ public class Administrador extends JFrame {
         String userName = txtUserName.getText();
         String clave = new String(txtClave.getPassword());
         String rol = txtRol.getText();
-        boolean estado = Boolean.parseBoolean(txtEstado.getText()); // Convertimos el texto "true" o "false" a booleano
+        boolean estado = Boolean.parseBoolean(txtEstado.getText());
 
         // Validamos que los campos no estén vacíos
         if (nombre.isEmpty() || userName.isEmpty() || clave.isEmpty() || rol.isEmpty()) {
@@ -92,9 +90,7 @@ public class Administrador extends JFrame {
             return;
         }
 
-        // ⭐ ¡IMPORTANTE! Aquí es donde deberías convertir la 'clave' a un hash seguro.
-        // Por ahora, la guardamos como texto plano, pero esto es inseguro en una app real.
-        String claveHash = clave; // Reemplazar esto con una función de hashing (ej: BCrypt)
+        String claveHash = clave;
 
         String sql = "INSERT INTO usuarios (nombre_completo, nombre_usuario, clave_hash, rol_app, activo) VALUES (?, ?, crypt(?, gen_salt('bf')), ?, ?)";
 

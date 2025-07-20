@@ -2,7 +2,7 @@ package Cajero;
 
 import Cliente.Cliente;
 import utils.DatabaseConnection;
-import Login.Login; // ¡IMPORTANTE! Importar la clase Login
+import Login.Login;
 
 import javax.swing.*;
 import java.awt.*;
@@ -51,10 +51,7 @@ public class Cajero extends JFrame {
         btnCerrarSesion.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // 1. Cierra la ventana actual del Cajero
                 dispose();
-
-                // 2. Crea y muestra una nueva ventana de Login
                 new Login();
             }
         });
@@ -75,7 +72,7 @@ public class Cajero extends JFrame {
         });
     }
 
-    // El metodo "inteligente" que decide qué hacer al hacer clic
+    // El metodo que decide qué hacer al hacer clic
     private void onMesaClick(int idMesa) {
         String estadoActual = estadosMesas.get(idMesa);
 
@@ -98,8 +95,7 @@ public class Cajero extends JFrame {
                     null, options, options[0]);
 
             switch (choice) {
-                case 0: // Generar Factura
-
+                case 0: // Liberar Mesa
                     JOptionPane.showMessageDialog(this, "Liberando y cerrando mesa " + idMesa + "...");
                     actualizarEstadoMesa(idMesa, "disponible");
                     cargarEstadoMesas(); // Refresca la vista
