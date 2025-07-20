@@ -2,9 +2,12 @@ package Cajero;
 
 import Cliente.Cliente;
 import utils.DatabaseConnection;
+import Login.Login; // ¡IMPORTANTE! Importar la clase Login
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -42,7 +45,19 @@ public class Cajero extends JFrame {
         cargarEstadoMesas(); // Carga los estados y pinta los botones
 
         lblUsuarioConectado.setText("Atendiendo: " + nombreMesero);
+
         setVisible(true);
+
+        btnCerrarSesion.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // 1. Cierra la ventana actual del Cajero
+                dispose();
+
+                // 2. Crea y muestra una nueva ventana de Login
+                new Login();
+            }
+        });
     }
 
     // Método para agrupar los botones para fácil acceso
@@ -60,7 +75,7 @@ public class Cajero extends JFrame {
         });
     }
 
-    // El método "inteligente" que decide qué hacer al hacer clic
+    // El metodo "inteligente" que decide qué hacer al hacer clic
     private void onMesaClick(int idMesa) {
         String estadoActual = estadosMesas.get(idMesa);
 
@@ -76,7 +91,7 @@ public class Cajero extends JFrame {
                 cargarEstadoMesas(); // Refresca la vista de mesas
             }
         } else if ("ocupada".equalsIgnoreCase(estadoActual)) {
-            Object[] options = {"Generar Factura", "Añadir a Pedido", "Cancelar"};
+            Object[] options = {"Liberar Mesa", "Cancelar"};
             int choice = JOptionPane.showOptionDialog(this,
                     "La mesa " + idMesa + " está ocupada. ¿Qué desea hacer?",
                     "Mesa Ocupada", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
@@ -84,15 +99,12 @@ public class Cajero extends JFrame {
 
             switch (choice) {
                 case 0: // Generar Factura
-                    // Aquí iría la lógica para buscar el pedido, calcular total, etc.
-                    JOptionPane.showMessageDialog(this, "Facturando y cerrando mesa " + idMesa + "...");
+
+                    JOptionPane.showMessageDialog(this, "Liberando y cerrando mesa " + idMesa + "...");
                     actualizarEstadoMesa(idMesa, "disponible");
                     cargarEstadoMesas(); // Refresca la vista
                     break;
-                case 1: // Añadir a Pedido
-                    JOptionPane.showMessageDialog(this, "Función 'Añadir a Pedido' aún no implementada.");
-                    break;
-                case 2: // Cancelar
+                case 1: // Cancelar
                     break;
             }
         }

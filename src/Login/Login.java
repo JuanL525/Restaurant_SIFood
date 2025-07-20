@@ -1,4 +1,5 @@
-import Cliente.Cliente;
+package Login;
+
 import Cajero.Cajero;
 import Administrador.Administrador;
 import utils.DatabaseConnection; // ¡Muy importante importar nuestra clase de conexión!
