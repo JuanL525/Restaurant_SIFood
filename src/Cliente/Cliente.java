@@ -1,11 +1,15 @@
 package Cliente;
 
-import Cliente.ButtonColumn;
+import Login.Login;
 import utils.DatabaseConnection;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.net.URL;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -17,6 +21,8 @@ public class Cliente extends JFrame {
     private JScrollPane menuScrollPane;
     private JList<String> lstCarrito;
     private JButton btnRealizarPedido;
+    private JLabel lblCarrito;
+
 
     // --- Modelos de Datos ---
     private ArrayList<OrderItem> carritoDeCompras;
@@ -41,6 +47,27 @@ public class Cliente extends JFrame {
         }
     }
 
+    private void cargarImagenCarrito() {
+        // Asegúrate de que el nombre del archivo coincida con el que tienes en 'resources'
+        String nombreImagen = "/carrito.png";
+
+        try {
+            URL imageUrl = getClass().getResource(nombreImagen);
+            if (imageUrl != null) {
+                ImageIcon originalIcon = new ImageIcon(imageUrl);
+                // Escala la imagen al tamaño del JLabel (ajusta 128x128 si es necesario)
+                Image scaledImage = originalIcon.getImage().getScaledInstance(128, 128, Image.SCALE_SMOOTH);
+                lblCarrito.setIcon(new ImageIcon(scaledImage));
+            } else {
+                System.err.println("No se pudo encontrar la imagen: " + nombreImagen);
+                lblCarrito.setText("Imagen no encontrada");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            lblCarrito.setText("Error al cargar imagen");
+        }
+    }
+
     // Constructor para uso general
     public Cliente() {
         initComponents();
@@ -60,8 +87,10 @@ public class Cliente extends JFrame {
         setTitle("Menú SIFood");
         setContentPane(ClientePanel);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(600, 400);
+        setSize(600, 450);
         setLocationRelativeTo(null);
+
+        cargarImagenCarrito();
 
         carritoDeCompras = new ArrayList<>();
         carritoListModel = new DefaultListModel<>();
@@ -142,27 +171,53 @@ public class Cliente extends JFrame {
     }
 
     private void cargarMenuEnTabla() {
-        String[] titulosColumnas = {"Plato", "Descripción", "Precio ($)", "Acción"};
+        // AÑADIMOS LA COLUMNA "IMAGEN" AL PRINCIPIO
+        String[] titulosColumnas = {"Imagen", "Plato", "Descripción", "Precio ($)", "Acción"};
 
-        DefaultTableModel tableModel = new DefaultTableModel(titulosColumnas, 0);
+        // CREAMOS UN MODELO DE TABLA ESPECIAL QUE ENTIENDE DE IMÁGENES
+        DefaultTableModel tableModel = new DefaultTableModel(titulosColumnas, 0) {
+            @Override
+            public Class<?> getColumnClass(int columnIndex) {
+                // Le decimos a la tabla que la primera columna (índice 0) es de tipo ImageIcon
+                if (columnIndex == 0) {
+                    return ImageIcon.class;
+                }
+                return super.getColumnClass(columnIndex);
+            }
+        };
 
         tableMenu.setModel(tableModel);
+        // AÑADIMOS ALTURA A LAS FILAS PARA QUE LAS IMÁGENES SE VEAN BIEN
+        tableMenu.setRowHeight(120);
+        // Ajustamos el ancho de la columna de imagen
+        TableColumn imageColumn = tableMenu.getColumnModel().getColumn(0);
+        imageColumn.setPreferredWidth(130);
 
-        String sql = "SELECT nombre, descripcion, precio FROM platos WHERE disponible = true ORDER BY nombre";
+
+        // MODIFICAMOS LA CONSULTA PARA TRAER EL NOMBRE DE LA IMAGEN
+        String sql = "SELECT nombre, descripcion, precio, imagen_nombre FROM platos WHERE disponible = true ORDER BY nombre";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
 
             while (rs.next()) {
+                // Obtenemos el nombre del archivo de la imagen
+                String nombreImagen = rs.getString("imagen_nombre");
+                // Cargamos la imagen como un ImageIcon
+                ImageIcon iconoPlato = cargarImagenPlato(nombreImagen, 100, 100);
+
+                // Creamos la fila, AÑADIENDO EL ICONO AL PRINCIPIO
                 Object[] fila = {
+                        iconoPlato,
                         rs.getString("nombre"),
                         rs.getString("descripcion"),
                         rs.getDouble("precio"),
-                        "Añadir" // Texto del botón
+                        "Añadir"
                 };
                 tableModel.addRow(fila);
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error al cargar el menú.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -174,8 +229,8 @@ public class Cliente extends JFrame {
 
             public void actionPerformed(ActionEvent e) {
                 int fila = Integer.parseInt(e.getActionCommand());
-                String nombrePlato = (String) tableMenu.getValueAt(fila, 0);
-                double precioPlato = (Double) tableMenu.getValueAt(fila, 2);
+                String nombrePlato = (String) tableMenu.getValueAt(fila, 1);
+                double precioPlato = (Double) tableMenu.getValueAt(fila, 3);
 
                 // Preguntar la cantidad
                 String cantidadStr = JOptionPane.showInputDialog(
@@ -206,9 +261,27 @@ public class Cliente extends JFrame {
 
         };
 
-        ButtonColumn botonEnTabla = new ButtonColumn(tableMenu, accionAñadir, 3);
+        ButtonColumn botonEnTabla = new ButtonColumn(tableMenu, accionAñadir, 4);
     }
 
+    private ImageIcon cargarImagenPlato(String nombreArchivo, int ancho, int alto) {
+        if (nombreArchivo == null || nombreArchivo.isEmpty()) {
+            return null; // O podrías devolver un icono de "imagen no disponible"
+        }
+
+        try {
+            // Busca la imagen en la carpeta 'resources/platos/'
+            URL imageUrl = getClass().getResource("/platos/" + nombreArchivo);
+            if (imageUrl != null) {
+                ImageIcon originalIcon = new ImageIcon(imageUrl);
+                Image scaledImage = originalIcon.getImage().getScaledInstance(ancho, alto, Image.SCALE_SMOOTH);
+                return new ImageIcon(scaledImage);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null; // Devuelve null si no se encuentra la imagen
+    }
 
     private void actualizarVistaCarrito() {
         // Limpiamos el modelo visual

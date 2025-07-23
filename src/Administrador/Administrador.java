@@ -1,10 +1,13 @@
 package Administrador;
 
 import utils.DatabaseConnection;
+import Login.*;
 
 import javax.swing.*;
+import java.awt.*; // Importamos Image
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL; // Importamos URL
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,18 +25,24 @@ public class Administrador extends JFrame {
     private JButton btnRegistrar;
     private JPanel VerEmpleados;
     private JTextArea txtAreaEmpleados;
+    private JLabel lblPerfil;
+    private JLabel lblAdd;
+    private JButton btnCerrarSesion;
     private JScrollPane scrollPaneEmpleados;
 
     public Administrador() {
         super("Panel de Administrador");
         setContentPane(AdminPanel);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Usamos DISPOSE para no cerrar toda la app
-        setSize(500, 270);
+        setSize(650, 290);
         setLocationRelativeTo(null);
 
         // Hacemos que el JTextArea no sea editable y tenga un texto inicial
         txtAreaEmpleados.setEditable(false);
         txtAreaEmpleados.setText("Cargando empleados...");
+
+        cargarImagenPerfil();
+        cargarImagenPerfil1();
 
         // --- Lógica del Botón Registrar ---
         btnRegistrar.addActionListener(new ActionListener() {
@@ -45,6 +54,58 @@ public class Administrador extends JFrame {
 
         cargarEmpleados();
         setVisible(true);
+
+        btnCerrarSesion.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                new Login();
+            }
+        });
+    }
+
+
+
+    private void cargarImagenPerfil() {
+        // Asegúrate de que el nombre del archivo coincida con el que tienes en 'resources'
+        String nombreImagen = "/admin_icon.png";
+
+        try {
+            URL imageUrl = getClass().getResource(nombreImagen);
+            if (imageUrl != null) {
+                ImageIcon originalIcon = new ImageIcon(imageUrl);
+                // Escala la imagen al tamaño del JLabel (ajusta 128x128 si es necesario)
+                Image scaledImage = originalIcon.getImage().getScaledInstance(128, 128, Image.SCALE_SMOOTH);
+                lblPerfil.setIcon(new ImageIcon(scaledImage));
+            } else {
+                System.err.println("No se pudo encontrar la imagen: " + nombreImagen);
+                lblPerfil.setText("Imagen no encontrada");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            lblPerfil.setText("Error al cargar imagen");
+        }
+    }
+
+    private void cargarImagenPerfil1() {
+        // Asegúrate de que el nombre del archivo coincida con el que tienes en 'resources'
+        String nombreImagen = "/addUser.png";
+
+        try {
+            URL imageUrl = getClass().getResource(nombreImagen);
+            if (imageUrl != null) {
+                ImageIcon originalIcon = new ImageIcon(imageUrl);
+                // Escala la imagen al tamaño del JLabel (ajusta 128x128 si es necesario)
+                Image scaledImage = originalIcon.getImage().getScaledInstance(128, 128, Image.SCALE_SMOOTH);
+                lblAdd.setIcon(new ImageIcon(scaledImage));
+            } else {
+                System.err.println("No se pudo encontrar la imagen: " + nombreImagen);
+                lblAdd.setText("Imagen no encontrada");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            lblAdd.setText("Error al cargar imagen");
+        }
     }
 
     /**

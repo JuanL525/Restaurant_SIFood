@@ -2,11 +2,13 @@ package Login;
 
 import Cajero.Cajero;
 import Administrador.Administrador;
-import utils.DatabaseConnection; // ¡Muy importante importar nuestra clase de conexión!
+import utils.DatabaseConnection;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.*;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,14 +19,18 @@ public class Login extends JFrame {
     private JTextField txtUser;
     private JButton btnIngresar;
     private JPasswordField txtClave;
+    private JLabel lblImagen;
+    private JLabel lblIcon;
 
     public Login() {
         super("Inicio de Sesión SIFood");
         setContentPane(panel1);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(300, 150);
+        setSize(600, 400);
         setLocationRelativeTo(null);
         setVisible(true);
+        cargarImagen();
+        cargarImagen2(lblIcon, "/icon.png", 95, 80);
 
         btnIngresar.addActionListener(new ActionListener() {
             @Override
@@ -34,6 +40,50 @@ public class Login extends JFrame {
             }
         });
     }
+
+    private void cargarImagen() {
+
+        String nombreImagen = "/restaurantLogin.jpg";
+
+        try {
+            // Obtenemos el recurso desde la carpeta 'resources'
+            URL imageUrl = getClass().getResource(nombreImagen);
+            if (imageUrl != null) {
+                ImageIcon originalIcon = new ImageIcon(imageUrl);
+                // Escalar la imagen para que se ajuste al tamaño del JLabel
+                // Puedes ajustar los números 150, 150 al tamaño que desees
+                Image scaledImage = originalIcon.getImage().getScaledInstance(190, 330, Image.SCALE_SMOOTH);
+                lblImagen.setIcon(new ImageIcon(scaledImage));
+            } else {
+                System.err.println("No se pudo encontrar la imagen: " + nombreImagen);
+                lblImagen.setText("Imagen no encontrada");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            lblImagen.setText("Error al cargar imagen");
+        }
+    }
+
+    private void cargarImagen2(JLabel labelDestino, String nombreImagen, int ancho, int alto) {
+        try {
+
+            URL imageUrl = getClass().getResource(nombreImagen);
+            if (imageUrl != null) {
+                ImageIcon originalIcon = new ImageIcon(imageUrl);
+
+                Image scaledImage = originalIcon.getImage().getScaledInstance(ancho, alto, Image.SCALE_SMOOTH);
+
+                labelDestino.setIcon(new ImageIcon(scaledImage));
+            } else {
+                System.err.println("No se pudo encontrar la imagen: " + nombreImagen);
+                labelDestino.setText("Imagen no encontrada");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            labelDestino.setText("Error al cargar imagen");
+        }
+    }
+
 
     /**
      * Este nuevo método se conecta a la base de datos para validar las credenciales.

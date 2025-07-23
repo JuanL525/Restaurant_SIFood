@@ -6,6 +6,7 @@ import Login.Login;
 
 import javax.swing.*;
 import java.awt.*;
+import java.net.URL;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -27,6 +28,12 @@ public class Cajero extends JFrame {
     private JButton btnMesa6;
     private JLabel lblUsuarioConectado;
     private JButton btnCerrarSesion;
+    private JLabel lblMesa1;
+    private JLabel lblMesa2;
+    private JLabel lblMesa3;
+    private JLabel lblMesa4;
+    private JLabel lblMesa5;
+    private JLabel lblMesa6;
 
     // Variable para guardar el estado de las mesas
     private Map<Integer, String> estadosMesas = new HashMap<>();
@@ -37,7 +44,7 @@ public class Cajero extends JFrame {
         super("Cajero SIFood - Vista de Mesas");
         setContentPane(CajeroPanel);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(600, 400);
+        setSize(600, 650);
         setLocationRelativeTo(null);
 
         inicializarMapaBotones();
@@ -45,6 +52,14 @@ public class Cajero extends JFrame {
         cargarEstadoMesas(); // Carga los estados y pinta los botones
 
         lblUsuarioConectado.setText("Atendiendo: " + nombreMesero);
+
+        cargarImagen(lblMesa1, "/mesa1.png", 140, 100);
+        cargarImagen(lblMesa2, "/mesa1.png", 140, 100);
+        cargarImagen(lblMesa3, "/mesa1.png", 140, 100);
+        cargarImagen(lblMesa4, "/mesa1.png", 140, 100);
+        cargarImagen(lblMesa5, "/mesa1.png", 140, 100);
+        cargarImagen(lblMesa6, "/mesa1.png", 140, 100);
+
 
         setVisible(true);
 
@@ -55,6 +70,27 @@ public class Cajero extends JFrame {
                 new Login();
             }
         });
+    }
+
+
+    private void cargarImagen(JLabel labelDestino, String nombreImagen, int ancho, int alto) {
+        try {
+
+            URL imageUrl = getClass().getResource(nombreImagen);
+            if (imageUrl != null) {
+                ImageIcon originalIcon = new ImageIcon(imageUrl);
+
+                Image scaledImage = originalIcon.getImage().getScaledInstance(ancho, alto, Image.SCALE_SMOOTH);
+
+                labelDestino.setIcon(new ImageIcon(scaledImage));
+            } else {
+                System.err.println("No se pudo encontrar la imagen: " + nombreImagen);
+                labelDestino.setText("Imagen no encontrada");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            labelDestino.setText("Error al cargar imagen");
+        }
     }
 
     // Método para agrupar los botones para fácil acceso
