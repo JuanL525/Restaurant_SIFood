@@ -105,7 +105,8 @@ public class Cliente extends JFrame {
             JOptionPane.showMessageDialog(this, "El carrito está vacío.", "Carrito Vacío", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        System.out.println(">>> Creando pedido para el mesero con ID: " + SesionUsuario.getId());
+        int meseroIdParaGuardar = SesionUsuario.getId();
+        JOptionPane.showMessageDialog(this, "SE VA A GUARDAR EL PEDIDO PARA EL MESERO CON ID: " + meseroIdParaGuardar);
 
         Connection conn = DatabaseConnection.getConnection();
         try {
