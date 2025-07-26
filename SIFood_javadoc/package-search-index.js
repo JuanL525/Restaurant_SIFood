@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"Administrador"},{"l":"All Packages","u":"allpackages-index.html"},{"l":"Cajero"},{"l":"Cliente"},{"l":"Login"},{"l":"utils"}];updateSearchResults();

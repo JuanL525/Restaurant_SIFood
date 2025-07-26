@@ -1,0 +1,1 @@
+typeSearchIndex = [{"p":"Administrador","l":"Administrador"},{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"Cliente","l":"ButtonColumn"},{"p":"Cajero","l":"Cajero"},{"p":"Cliente","l":"Cliente"},{"p":"utils","l":"DatabaseConnection"},{"p":"Login","l":"Login"},{"p":"<Unnamed>","l":"Main"},{"p":"utils","l":"SesionUsuario"}];updateSearchResults();
