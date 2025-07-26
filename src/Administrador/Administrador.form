@@ -184,7 +184,7 @@
               </component>
             </children>
           </grid>
-          <grid id="dfdf0" binding="StockPanel" layout-manager="GridLayoutManager" row-count="4" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+          <grid id="dfdf0" binding="StockPanel" layout-manager="GridLayoutManager" row-count="4" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
               <tabbedpane title="Gestionar Stock"/>
@@ -240,9 +240,17 @@
                   <text value="Actualizar Stock"/>
                 </properties>
               </component>
+              <component id="23c4c" class="javax.swing.JLabel" binding="lblStock">
+                <constraints>
+                  <grid row="0" column="2" row-span="4" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value=""/>
+                </properties>
+              </component>
             </children>
           </grid>
-          <grid id="16725" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+          <grid id="16725" layout-manager="GridLayoutManager" row-count="2" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
               <tabbedpane title="Panel"/>
@@ -281,6 +289,14 @@
                   </grid>
                 </constraints>
                 <properties/>
+              </component>
+              <component id="9e2d3" class="javax.swing.JLabel" binding="lblPanel">
+                <constraints>
+                  <grid row="0" column="2" row-span="2" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value=""/>
+                </properties>
               </component>
             </children>
           </grid>

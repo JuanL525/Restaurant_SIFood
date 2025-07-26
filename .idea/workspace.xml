@@ -4,12 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f6882118-f1ab-4baa-8e17-c2be462df347" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/Restaurante_SIFood_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Restaurante_SIFood.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Restaurante_SIFood.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Cliente/Cliente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Cliente/Cliente.java" afterDir="false" />
+    <list default="true" id="f6882118-f1ab-4baa-8e17-c2be462df347" name="Changes" comment="Arreglado codigo fantasma">
+      <change afterPath="$PROJECT_DIR$/Resources/panel.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Resources/stock.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Administrador/Administrador.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Administrador/Administrador.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Administrador/Administrador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Administrador/Administrador.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,6 +53,11 @@
     "project.structure.side.proportion": "0.0"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\HP\IdeaProjects\Restaurante_SIFood\Resources" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -62,6 +67,19 @@
       <option name="presentableId" value="Default" />
       <updated>1753491064973</updated>
     </task>
+    <task id="LOCAL-00001" summary="Arreglado codigo fantasma">
+      <option name="closed" value="true" />
+      <created>1753491939066</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1753491939066</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Arreglado codigo fantasma" />
+    <option name="LAST_COMMIT_MESSAGE" value="Arreglado codigo fantasma" />
   </component>
 </project>

@@ -37,6 +37,8 @@ public class Administrador extends JFrame {
     private JButton btnActualizarStock;
     private JTextArea txtAreaProdutosMV;
     private JTextArea txtAreaEmpleadoMes;
+    private JLabel lblStock;
+    private JLabel lblPanel;
     private JScrollPane scrollPaneEmpleados;
 
     public Administrador() {
@@ -52,6 +54,8 @@ public class Administrador extends JFrame {
 
         cargarImagenPerfil();
         cargarImagenPerfil1();
+        cargarImagen(lblStock, "/stock.png", 90,90);
+        cargarImagen(lblPanel,"/panel.png", 180,160);
 
         // --- Lógica del Botón Registrar ---
         btnRegistrar.addActionListener(new ActionListener() {
@@ -236,6 +240,26 @@ public class Administrador extends JFrame {
         } catch (Exception e) {
             e.printStackTrace();
             lblAdd.setText("Error al cargar imagen");
+        }
+    }
+
+    private void cargarImagen(JLabel labelDestino, String nombreImagen, int ancho, int alto) {
+        try {
+
+            URL imageUrl = getClass().getResource(nombreImagen);
+            if (imageUrl != null) {
+                ImageIcon originalIcon = new ImageIcon(imageUrl);
+
+                Image scaledImage = originalIcon.getImage().getScaledInstance(ancho, alto, Image.SCALE_SMOOTH);
+
+                labelDestino.setIcon(new ImageIcon(scaledImage));
+            } else {
+                System.err.println("No se pudo encontrar la imagen: " + nombreImagen);
+                labelDestino.setText("Imagen no encontrada");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            labelDestino.setText("Error al cargar imagen");
         }
     }
 
