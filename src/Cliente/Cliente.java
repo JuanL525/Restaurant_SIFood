@@ -15,7 +15,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class Cliente extends JFrame {
-    // --- Componentes Visuales ---
+
     private JTabbedPane tabMenuPane;
     private JPanel ClientePanel;
     private JTable tableMenu;
@@ -24,11 +24,9 @@ public class Cliente extends JFrame {
     private JButton btnRealizarPedido;
     private JLabel lblCarrito;
 
-
-    // --- Modelos de Datos ---
     private ArrayList<OrderItem> carritoDeCompras;
     private DefaultListModel<String> carritoListModel;
-    private int mesaId; // VARIABLE PARA GUARDAR EL ID DE LA MESA
+    private int mesaId; // PARA GUARDAR EL ID DE LA MESA
 
     // Clase interna para representar un item en el carrito
     private static class OrderItem {
@@ -49,7 +47,6 @@ public class Cliente extends JFrame {
     }
 
     private void cargarImagenCarrito() {
-        // Asegúrate de que el nombre del archivo coincida con el que tienes en 'resources'
         String nombreImagen = "/carrito.png";
 
         try {
@@ -75,7 +72,7 @@ public class Cliente extends JFrame {
         cargarMenuEnTabla();
     }
 
-    // NUEVO CONSTRUCTOR que recibe el ID de la mesa
+    // CONSTRUCTOR que recibe el ID de la mesa
     public Cliente(int idMesa) {
         initComponents();
         this.mesaId = idMesa; // Guardamos el ID de la mesa
@@ -115,9 +112,7 @@ public class Cliente extends JFrame {
             String sqlPedido = "INSERT INTO pedidos (mesa_id, usuario_id_mesero, turno_id, estado_id, numero_comensales) VALUES (?, ?, ?, ?, ?)";
             long pedidoId;
             try (PreparedStatement pstmtPedido = conn.prepareStatement(sqlPedido, Statement.RETURN_GENERATED_KEYS)) {
-                // ID DE MESA CORRECTO
                 pstmtPedido.setInt(1, this.mesaId);
-                // Valores de ejemplo para los otros campos
                 pstmtPedido.setInt(2, SesionUsuario.getId()); // Obtiene el ID del mesero
                 pstmtPedido.setInt(3, 1); // Turno 'Almuerzo'
                 pstmtPedido.setInt(4, 1); // Estado 'Solicitado'
@@ -174,10 +169,8 @@ public class Cliente extends JFrame {
     }
 
     private void cargarMenuEnTabla() {
-        // AÑADIMOS LA COLUMNA "IMAGEN" AL PRINCIPIO
         String[] titulosColumnas = {"Imagen", "Plato", "Descripción", "Precio ($)", "Acción"};
 
-        // CREAMOS UN MODELO DE TABLA ESPECIAL QUE ENTIENDE DE IMÁGENES
         DefaultTableModel tableModel = new DefaultTableModel(titulosColumnas, 0) {
             @Override
             public Class<?> getColumnClass(int columnIndex) {
@@ -226,7 +219,7 @@ public class Cliente extends JFrame {
             JOptionPane.showMessageDialog(this, "Error al cargar el menú.", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
-        // --- Lógica del Botón "Añadir" ---
+        // Lógica del Botón Añadir
 
         Action accionAñadir = new AbstractAction() {
 
@@ -269,7 +262,7 @@ public class Cliente extends JFrame {
 
     private ImageIcon cargarImagenPlato(String nombreArchivo, int ancho, int alto) {
         if (nombreArchivo == null || nombreArchivo.isEmpty()) {
-            return null; // O podrías devolver un icono de "imagen no disponible"
+            return null;
         }
 
         try {
@@ -287,7 +280,7 @@ public class Cliente extends JFrame {
     }
 
     private void actualizarVistaCarrito() {
-        // Limpiamos el modelo visual
+        // Limpiamos la tabla del carrito
         carritoListModel.clear();
         double total = 0;
 

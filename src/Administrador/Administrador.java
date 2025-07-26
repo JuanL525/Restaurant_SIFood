@@ -4,10 +4,10 @@ import utils.DatabaseConnection;
 import Login.*;
 
 import javax.swing.*;
-import java.awt.*; // Importamos Image
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.net.URL; // Importamos URL
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -44,7 +44,7 @@ public class Administrador extends JFrame {
     public Administrador() {
         super("Panel de Administrador");
         setContentPane(AdminPanel);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Usamos DISPOSE para no cerrar toda la app
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // DISPOSE para no cerrar toda la app
         setSize(650, 300);
         setLocationRelativeTo(null);
 
@@ -52,12 +52,12 @@ public class Administrador extends JFrame {
         txtAreaEmpleados.setEditable(false);
         txtAreaEmpleados.setText("Cargando empleados...");
 
-        cargarImagenPerfil();
-        cargarImagenPerfil1();
+        cargarImagen(lblAdd, "/addUser.png", 100, 100);
+        cargarImagen(lblPerfil, "/admin_icon.png", 100, 100);
         cargarImagen(lblStock, "/stock.png", 90,90);
         cargarImagen(lblPanel,"/panel.png", 180,160);
 
-        // --- Lógica del Botón Registrar ---
+        // Lógica del Botón Registrar
         btnRegistrar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -91,7 +91,7 @@ public class Administrador extends JFrame {
 
     private void cargarPlatosMasVendidos() {
         StringBuilder texto = new StringBuilder("--- Platos Más Vendidos ---\n\n");
-        // Usamos la vista que ya existe
+        // Usamos la vista existente
         String sql = "SELECT nombre, categoria, total_vendido FROM vista_gerente_platos_mas_pedidos LIMIT 5";
 
         try (Connection conn = DatabaseConnection.getConnection();
@@ -116,7 +116,6 @@ public class Administrador extends JFrame {
 
 
     private void cargarEmpleadoDelMes() {
-        // Usamos la nueva vista que creamos
         String sql = "SELECT nombre_completo, ventas_totales, pedidos_atendidos FROM vista_gerente_ventas_por_mesero LIMIT 1";
 
         try (Connection conn = DatabaseConnection.getConnection();
@@ -200,49 +199,6 @@ public class Administrador extends JFrame {
     }
 
 
-
-    private void cargarImagenPerfil() {
-        // Asegúrate de que el nombre del archivo coincida con el que tienes en 'resources'
-        String nombreImagen = "/admin_icon.png";
-
-        try {
-            URL imageUrl = getClass().getResource(nombreImagen);
-            if (imageUrl != null) {
-                ImageIcon originalIcon = new ImageIcon(imageUrl);
-                // Escala la imagen al tamaño del JLabel (ajusta 128x128 si es necesario)
-                Image scaledImage = originalIcon.getImage().getScaledInstance(128, 128, Image.SCALE_SMOOTH);
-                lblPerfil.setIcon(new ImageIcon(scaledImage));
-            } else {
-                System.err.println("No se pudo encontrar la imagen: " + nombreImagen);
-                lblPerfil.setText("Imagen no encontrada");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            lblPerfil.setText("Error al cargar imagen");
-        }
-    }
-
-    private void cargarImagenPerfil1() {
-        // Asegúrate de que el nombre del archivo coincida con el que tienes en 'resources'
-        String nombreImagen = "/addUser.png";
-
-        try {
-            URL imageUrl = getClass().getResource(nombreImagen);
-            if (imageUrl != null) {
-                ImageIcon originalIcon = new ImageIcon(imageUrl);
-                // Escala la imagen al tamaño del JLabel (ajusta 128x128 si es necesario)
-                Image scaledImage = originalIcon.getImage().getScaledInstance(128, 128, Image.SCALE_SMOOTH);
-                lblAdd.setIcon(new ImageIcon(scaledImage));
-            } else {
-                System.err.println("No se pudo encontrar la imagen: " + nombreImagen);
-                lblAdd.setText("Imagen no encontrada");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            lblAdd.setText("Error al cargar imagen");
-        }
-    }
-
     private void cargarImagen(JLabel labelDestino, String nombreImagen, int ancho, int alto) {
         try {
 
@@ -300,7 +256,7 @@ public class Administrador extends JFrame {
         String rol = txtRol.getText();
         boolean estado = Boolean.parseBoolean(txtEstado.getText());
 
-        // Validamos que los campos no estén vacíos
+        // Validación
         if (nombre.isEmpty() || userName.isEmpty() || clave.isEmpty() || rol.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios.", "Error", JOptionPane.WARNING_MESSAGE);
             return;
@@ -329,7 +285,7 @@ public class Administrador extends JFrame {
 
         } catch (SQLException e) {
             e.printStackTrace();
-            // Manejar errores comunes como un nombre de usuario duplicado
+            // Manejar errores
             JOptionPane.showMessageDialog(this, "Error al registrar el empleado.\nCausa probable: El nombre de usuario ya existe.", "Error de Registro", JOptionPane.ERROR_MESSAGE);
         }
     }

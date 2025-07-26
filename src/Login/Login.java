@@ -30,42 +30,20 @@ public class Login extends JFrame {
         setSize(600, 400);
         setLocationRelativeTo(null);
         setVisible(true);
-        cargarImagen();
-        cargarImagen2(lblIcon, "/icon.png", 95, 80);
+
+        cargarImagen(lblIcon, "/icon.png", 95, 80);
+        cargarImagen(lblImagen, "/restaurantLogin.jpg", 190, 370);
 
         btnIngresar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Ahora llamamos a la nueva versión del método
+                // Llamamos a la nueva versión del método
                 validarCredencialesConDB();
             }
         });
     }
 
-    private void cargarImagen() {
-
-        String nombreImagen = "/restaurantLogin.jpg";
-
-        try {
-            // Obtenemos el recurso desde la carpeta 'resources'
-            URL imageUrl = getClass().getResource(nombreImagen);
-            if (imageUrl != null) {
-                ImageIcon originalIcon = new ImageIcon(imageUrl);
-                // Escalar la imagen para que se ajuste al tamaño del JLabel
-                // Puedes ajustar los números 150, 150 al tamaño que desees
-                Image scaledImage = originalIcon.getImage().getScaledInstance(190, 370, Image.SCALE_SMOOTH);
-                lblImagen.setIcon(new ImageIcon(scaledImage));
-            } else {
-                System.err.println("No se pudo encontrar la imagen: " + nombreImagen);
-                lblImagen.setText("Imagen no encontrada");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            lblImagen.setText("Error al cargar imagen");
-        }
-    }
-
-    private void cargarImagen2(JLabel labelDestino, String nombreImagen, int ancho, int alto) {
+    private void cargarImagen(JLabel labelDestino, String nombreImagen, int ancho, int alto) {
         try {
 
             URL imageUrl = getClass().getResource(nombreImagen);
@@ -87,7 +65,7 @@ public class Login extends JFrame {
 
 
     /**
-     * Este nuevo método se conecta a la base de datos para validar las credenciales.
+     * Este método se conecta a la base de datos para validar las credenciales.
      */
     private void validarCredencialesConDB() {
         String user = txtUser.getText();
@@ -95,7 +73,7 @@ public class Login extends JFrame {
 
         if (user.isEmpty() || clave.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Por favor, ingrese usuario y contraseña", "Campos Vacíos", JOptionPane.WARNING_MESSAGE);
-            return; // Salimos del método si los campos están vacíos
+            return; // Salimos del metodo si los campos estan vacíos
         }
 
 
@@ -119,17 +97,14 @@ public class Login extends JFrame {
 
                     JOptionPane.showMessageDialog(this, "¡Bienvenido(a), " + nombreCompleto + "!");
 
-                    // Usamos un switch para abrir la ventana correcta según el rol
+                    // Usamos un switch para abrir la ventana correspondiente según el rol
                     switch (rol) {
                         case "Administrador":
                             new Administrador();
                             break;
                         case "Mesero":
-                            // Aquí le pasamos el nombre del mesero a la siguiente ventana
+                            // Aquí pasamos el nombre del mesero a la siguiente ventana
                             new Cajero();
-                            break;
-                        case "Cocinero":
-                            // new Cocina(); // Si tuvieras una ventana para la cocina
                             break;
                         default:
                             JOptionPane.showMessageDialog(this, "Rol no reconocido.", "Error", JOptionPane.ERROR_MESSAGE);

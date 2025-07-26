@@ -36,9 +36,9 @@ public class Cajero extends JFrame {
     private JLabel lblMesa5;
     private JLabel lblMesa6;
 
-    // Variable para guardar el estado de las mesas
+    // Para guardar el estado de las mesas
     private Map<Integer, String> estadosMesas = new HashMap<>();
-    // Variable para mapear IDs a botones
+    // Para mapear IDs a botones
     private Map<Integer, JButton> mapaBotones;
 
     public Cajero() {
@@ -109,12 +109,11 @@ public class Cajero extends JFrame {
         });
     }
 
-    // El metodo que decide qué hacer al hacer clic
+    // Metodo que determina qué hacer al hacer clic
     private void onMesaClick(int idMesa) {
         String estadoActual = estadosMesas.get(idMesa);
 
         if ("disponible".equalsIgnoreCase(estadoActual)) {
-            // ... (Esta parte no cambia)
             int confirm = JOptionPane.showConfirmDialog(this,
                     "¿Desea abrir un nuevo pedido para la mesa " + idMesa + "?",
                     "Abrir Pedido", JOptionPane.YES_NO_OPTION);
@@ -134,7 +133,6 @@ public class Cajero extends JFrame {
                     null, options, options[0]);
 
             switch (choice) {
-                // --- INICIO DE LA LÓGICA CORREGIDA ---
                 case 0: // Generar Factura
                     // Pedimos el porcentaje de propina
                     String propinaStr = JOptionPane.showInputDialog(this, "Ingrese el porcentaje de propina (ej: 10):", "Facturar", JOptionPane.QUESTION_MESSAGE);
@@ -163,7 +161,7 @@ public class Cajero extends JFrame {
                     } catch (NumberFormatException ex) {
                         JOptionPane.showMessageDialog(this, "Por favor, ingrese un número válido para la propina.", "Error de Formato", JOptionPane.WARNING_MESSAGE);
                     } catch (NullPointerException ex) {
-                        // El usuario presionó cancelar en el diálogo de propina
+
                     }
                     break;
                 case 2: // Cancelar

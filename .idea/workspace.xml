@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="Restaurante_SIFood:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f6882118-f1ab-4baa-8e17-c2be462df347" name="Changes" comment="Arreglado codigo fantasma">
-      <change afterPath="$PROJECT_DIR$/Resources/panel.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Resources/stock.png" afterDir="false" />
+    <list default="true" id="f6882118-f1ab-4baa-8e17-c2be462df347" name="Changes" comment="imagenes agregadas">
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/Restaurante_SIFood_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Resources/META-INF/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Administrador/Administrador.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Administrador/Administrador.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Administrador/Administrador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Administrador/Administrador.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Login/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Login/Login.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,22 +25,22 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "JuanL525"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;JuanL525&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/JuanL525/Restaurant_SIFood.git",
-    "accountId": "14c5b7e6-e99f-4577-9399-1cc899177d85"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/JuanL525/Restaurant_SIFood.git&quot;,
+    &quot;accountId&quot;: &quot;14c5b7e6-e99f-4577-9399-1cc899177d85&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 0
-}]]></component>
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 0
+}</component>
   <component name="ProjectId" id="30OGAiMBqyPpt58odVAAxoiXXlz" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -45,12 +51,13 @@
     "Application.Main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/HP/Downloads/postgresql-42.7.6.jar",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0"
+    "project.structure.last.edited": "Artifacts",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -75,11 +82,20 @@
       <option name="project" value="LOCAL" />
       <updated>1753491939066</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="imagenes agregadas">
+      <option name="closed" value="true" />
+      <created>1753493713608</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1753493713608</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Arreglado codigo fantasma" />
-    <option name="LAST_COMMIT_MESSAGE" value="Arreglado codigo fantasma" />
+    <MESSAGE value="imagenes agregadas" />
+    <option name="LAST_COMMIT_MESSAGE" value="imagenes agregadas" />
   </component>
 </project>
