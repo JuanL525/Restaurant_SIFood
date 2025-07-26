@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import utils.*;
 
 public class Login extends JFrame {
     private JPanel panel1;
@@ -52,7 +53,7 @@ public class Login extends JFrame {
                 ImageIcon originalIcon = new ImageIcon(imageUrl);
                 // Escalar la imagen para que se ajuste al tamaño del JLabel
                 // Puedes ajustar los números 150, 150 al tamaño que desees
-                Image scaledImage = originalIcon.getImage().getScaledInstance(190, 330, Image.SCALE_SMOOTH);
+                Image scaledImage = originalIcon.getImage().getScaledInstance(190, 370, Image.SCALE_SMOOTH);
                 lblImagen.setIcon(new ImageIcon(scaledImage));
             } else {
                 System.err.println("No se pudo encontrar la imagen: " + nombreImagen);
@@ -98,7 +99,7 @@ public class Login extends JFrame {
         }
 
 
-        String sql = "SELECT nombre_completo, rol_app FROM usuarios WHERE nombre_usuario = ? AND clave_hash = crypt(?, clave_hash) AND activo = true";
+        String sql = "SELECT id, nombre_completo, rol_app FROM usuarios WHERE nombre_usuario = ? AND clave_hash = crypt(?, clave_hash) AND activo = true";
 
         // Usamos try-with-resources para manejar la conexión de forma segura
         try (Connection conn = DatabaseConnection.getConnection();
@@ -110,8 +111,11 @@ public class Login extends JFrame {
             try (ResultSet rs = pstmt.executeQuery()) {
                 // Si rs.next() es verdadero, encontramos un usuario válido y activo
                 if (rs.next()) {
+                    int idUsuario = rs.getInt("id");
                     String nombreCompleto = rs.getString("nombre_completo");
                     String rol = rs.getString("rol_app");
+
+                    SesionUsuario.iniciarSesion(idUsuario, nombreCompleto, user, rol);
 
                     JOptionPane.showMessageDialog(this, "¡Bienvenido(a), " + nombreCompleto + "!");
 
@@ -122,7 +126,7 @@ public class Login extends JFrame {
                             break;
                         case "Mesero":
                             // Aquí le pasamos el nombre del mesero a la siguiente ventana
-                            new Cajero(nombreCompleto);
+                            new Cajero();
                             break;
                         case "Cocinero":
                             // new Cocina(); // Si tuvieras una ventana para la cocina

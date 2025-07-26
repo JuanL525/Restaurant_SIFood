@@ -3,13 +3,14 @@ package Cajero;
 import Cliente.Cliente;
 import utils.DatabaseConnection;
 import Login.Login;
+import utils.SesionUsuario;
 
 import javax.swing.*;
 import java.awt.*;
 import java.net.URL;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
+import java.sql.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -40,7 +41,7 @@ public class Cajero extends JFrame {
     // Variable para mapear IDs a botones
     private Map<Integer, JButton> mapaBotones;
 
-    public Cajero(String nombreMesero) {
+    public Cajero() {
         super("Cajero SIFood - Vista de Mesas");
         setContentPane(CajeroPanel);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -51,7 +52,7 @@ public class Cajero extends JFrame {
         configurarBotonesMesa();
         cargarEstadoMesas(); // Carga los estados y pinta los botones
 
-        lblUsuarioConectado.setText("Atendiendo: " + nombreMesero);
+        lblUsuarioConectado.setText("Atendiendo: " + SesionUsuario.getNombreCompleto());
 
         cargarImagen(lblMesa1, "/mesa1.png", 140, 100);
         cargarImagen(lblMesa2, "/mesa1.png", 140, 100);
@@ -113,6 +114,7 @@ public class Cajero extends JFrame {
         String estadoActual = estadosMesas.get(idMesa);
 
         if ("disponible".equalsIgnoreCase(estadoActual)) {
+            // ... (Esta parte no cambia)
             int confirm = JOptionPane.showConfirmDialog(this,
                     "¿Desea abrir un nuevo pedido para la mesa " + idMesa + "?",
                     "Abrir Pedido", JOptionPane.YES_NO_OPTION);
@@ -121,26 +123,55 @@ public class Cajero extends JFrame {
                 actualizarEstadoMesa(idMesa, "ocupada");
                 Cliente ventanaDePedido = new Cliente(idMesa);
                 ventanaDePedido.setVisible(true);
-                cargarEstadoMesas(); // Refresca la vista de mesas
+                cargarEstadoMesas();
             }
         } else if ("ocupada".equalsIgnoreCase(estadoActual)) {
-            Object[] options = {"Liberar Mesa", "Cancelar"};
+            Object[] options = {"Generar Factura", "Cancelar"};
             int choice = JOptionPane.showOptionDialog(this,
                     "La mesa " + idMesa + " está ocupada. ¿Qué desea hacer?",
-                    "Mesa Ocupada", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
+                    "Mesa Ocupada",
+                    JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
                     null, options, options[0]);
 
             switch (choice) {
-                case 0: // Liberar Mesa
-                    JOptionPane.showMessageDialog(this, "Liberando y cerrando mesa " + idMesa + "...");
-                    actualizarEstadoMesa(idMesa, "disponible");
-                    cargarEstadoMesas(); // Refresca la vista
+                // --- INICIO DE LA LÓGICA CORREGIDA ---
+                case 0: // Generar Factura
+                    // Pedimos el porcentaje de propina
+                    String propinaStr = JOptionPane.showInputDialog(this, "Ingrese el porcentaje de propina (ej: 10):", "Facturar", JOptionPane.QUESTION_MESSAGE);
+                    try {
+                        double propina = Double.parseDouble(propinaStr);
+
+                        // Llamamos al procedimiento almacenado
+                        String sql = "CALL sp_facturar_mesa(?, ?)";
+                        try (Connection conn = DatabaseConnection.getConnection();
+                             CallableStatement cs = conn.prepareCall(sql)) {
+
+                            cs.setInt(1, idMesa);
+                            cs.setDouble(2, propina);
+                            cs.execute();
+
+                            JOptionPane.showMessageDialog(this, "¡Mesa " + idMesa + " facturada con éxito!", "Facturación Completa", JOptionPane.INFORMATION_MESSAGE);
+
+                        } catch (SQLException ex) {
+                            ex.printStackTrace();
+                            JOptionPane.showMessageDialog(this, "Error al facturar la mesa.\n" + ex.getMessage(), "Error de BD", JOptionPane.ERROR_MESSAGE);
+                        }
+
+
+                        cargarEstadoMesas();
+
+                    } catch (NumberFormatException ex) {
+                        JOptionPane.showMessageDialog(this, "Por favor, ingrese un número válido para la propina.", "Error de Formato", JOptionPane.WARNING_MESSAGE);
+                    } catch (NullPointerException ex) {
+                        // El usuario presionó cancelar en el diálogo de propina
+                    }
                     break;
-                case 1: // Cancelar
+                case 2: // Cancelar
                     break;
             }
         }
     }
+
 
     // Actualiza el estado de una mesa en la base de datos
     private void actualizarEstadoMesa(int idMesa, String nuevoEstado) {

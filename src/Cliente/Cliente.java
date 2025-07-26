@@ -2,6 +2,7 @@ package Cliente;
 
 import Login.Login;
 import utils.DatabaseConnection;
+import utils.SesionUsuario;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -104,6 +105,7 @@ public class Cliente extends JFrame {
             JOptionPane.showMessageDialog(this, "El carrito está vacío.", "Carrito Vacío", JOptionPane.WARNING_MESSAGE);
             return;
         }
+        System.out.println(">>> Creando pedido para el mesero con ID: " + SesionUsuario.getId());
 
         Connection conn = DatabaseConnection.getConnection();
         try {
@@ -115,7 +117,7 @@ public class Cliente extends JFrame {
                 // ID DE MESA CORRECTO
                 pstmtPedido.setInt(1, this.mesaId);
                 // Valores de ejemplo para los otros campos
-                pstmtPedido.setInt(2, 2); // Mesero 'agomez_mesera'
+                pstmtPedido.setInt(2, SesionUsuario.getId()); // Obtiene el ID del mesero
                 pstmtPedido.setInt(3, 1); // Turno 'Almuerzo'
                 pstmtPedido.setInt(4, 1); // Estado 'Solicitado'
                 pstmtPedido.setInt(5, 1); // Comensales
