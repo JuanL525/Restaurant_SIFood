@@ -8,6 +8,15 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Una clase de ayuda compleja que actúa como renderizador y editor de celdas
+ * para una JTable, permitiendo mostrar y utilizar un JButton funcional dentro
+ * de una columna de la tabla.
+ *
+ * @author Juan Lucero
+ * @version 1.0
+ */
+
 public class ButtonColumn extends AbstractCellEditor implements TableCellRenderer, TableCellEditor, ActionListener {
     private JTable table;
     private Action action;
@@ -15,6 +24,13 @@ public class ButtonColumn extends AbstractCellEditor implements TableCellRendere
     private JButton editButton;
     private String text;
     private boolean isButtonColumnEditor;
+
+    /**
+     * Constructor para la columna de botones.
+     * @param table La JTable a la que se le añadirá el botón.
+     * @param action La acción que se ejecutará al hacer clic en el botón.
+     * @param column El índice de la columna donde se renderizará el botón.
+     */
 
     public ButtonColumn(JTable table, Action action, int column) {
         this.table = table;

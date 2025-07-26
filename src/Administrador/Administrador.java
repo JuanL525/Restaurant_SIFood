@@ -14,6 +14,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.*;
 
+/**
+ * Representa el panel de control principal para el rol de Administrador.
+ * Proporciona funcionalidades para gestionar empleados (usuarios), actualizar el stock
+ * de ingredientes y visualizar reportes de interés del negocio.
+ *
+ * @author Juan Lucero
+ * @version 1.0
+ */
+
 
 public class Administrador extends JFrame {
     private JTabbedPane AdminTab;
@@ -89,6 +98,11 @@ public class Administrador extends JFrame {
         });
     }
 
+    /**
+     * Consulta la base de datos para obtener la lista de platos más vendidos
+     * a través de una vista y la despliega en el área de texto correspondiente.
+     */
+
     private void cargarPlatosMasVendidos() {
         StringBuilder texto = new StringBuilder("--- Platos Más Vendidos ---\n\n");
         // Usamos la vista existente
@@ -114,6 +128,10 @@ public class Administrador extends JFrame {
         }
     }
 
+    /**
+     * Consulta una vista en la base de datos para determinar y mostrar
+     * el empleado con el mayor volumen de ventas en pedidos cerrados.
+     */
 
     private void cargarEmpleadoDelMes() {
         String sql = "SELECT nombre_completo, ventas_totales, pedidos_atendidos FROM vista_gerente_ventas_por_mesero LIMIT 1";
@@ -143,6 +161,10 @@ public class Administrador extends JFrame {
         }
     }
 
+    /**
+     * Obtiene la lista completa de ingredientes y su stock actual desde la
+     * base de datos y la muestra en un JTextArea.
+     */
 
     private void cargarIngredientes() {
         StringBuilder ingredientesTexto = new StringBuilder("--- Inventario de Ingredientes ---\n\n");
@@ -165,6 +187,11 @@ public class Administrador extends JFrame {
             txtAreaIngredientes.setText("Error al cargar el inventario.");
         }
     }
+
+    /**
+     * Llama a un procedimiento almacenado en la base de datos (sp_actualizar_stock_ingrediente)
+     * para actualizar el stock de un ingrediente específico. Refresca la lista al finalizar.
+     */
 
     private void actualizarStock() {
         try {

@@ -15,6 +15,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import utils.*;
 
+/**
+ * Representa la ventana de inicio de sesión y es el punto de entrada principal de la aplicación.
+ * Se encarga de autenticar a los usuarios contra la base de datos y redirigirlos
+ * al panel correspondiente a su rol.
+ *
+ * @author Juan Lucero
+ * @version 1.0
+ */
+
 public class Login extends JFrame {
     private JPanel panel1;
     private JTextField txtUser;
@@ -22,6 +31,11 @@ public class Login extends JFrame {
     private JPasswordField txtClave;
     private JLabel lblImagen;
     private JLabel lblIcon;
+
+    /**
+     * Constructor que inicializa la interfaz gráfica de la ventana de Login,
+     * configura sus propiedades y asigna los listeners a los botones.
+     */
 
     public Login() {
         super("Inicio de Sesión SIFood");
@@ -42,6 +56,10 @@ public class Login extends JFrame {
             }
         });
     }
+
+    /**
+     * Carga y escala una imagen decorativa para la interfaz de login.
+     */
 
     private void cargarImagen(JLabel labelDestino, String nombreImagen, int ancho, int alto) {
         try {
@@ -65,8 +83,11 @@ public class Login extends JFrame {
 
 
     /**
-     * Este método se conecta a la base de datos para validar las credenciales.
+     * Valida las credenciales introducidas por el usuario contra la base de datos.
+     * Utiliza la clase SesionUsuario para guardar los datos del usuario si el login es exitoso
+     * y abre la ventana correspondiente a su rol.
      */
+
     private void validarCredencialesConDB() {
         String user = txtUser.getText();
         String clave = new String(txtClave.getPassword());

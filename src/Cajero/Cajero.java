@@ -17,6 +17,11 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Representa la ventana principal para el rol de Mesero (Cajero).
+ * Muestra un mapa de mesas, su estado y permite iniciar la toma de pedidos.
+ */
+
 public class Cajero extends JFrame {
     private JPanel CajeroPanel;
     private JPanel panelInfo;
@@ -40,6 +45,10 @@ public class Cajero extends JFrame {
     private Map<Integer, String> estadosMesas = new HashMap<>();
     // Para mapear IDs a botones
     private Map<Integer, JButton> mapaBotones;
+
+    /**
+     * Constructor que crea la ventana del Cajero y muestra el nombre del mesero.
+     */
 
     public Cajero() {
         super("Cajero SIFood - Vista de Mesas");
@@ -170,6 +179,11 @@ public class Cajero extends JFrame {
         }
     }
 
+    /**
+     * Actualiza el estado de una mesa específica en la base de datos.
+     * @param idMesa El ID de la mesa que se va a actualizar.
+     * @param nuevoEstado El nuevo estado a asignar ("ocupada" o "disponible").
+     */
 
     // Actualiza el estado de una mesa en la base de datos
     private void actualizarEstadoMesa(int idMesa, String nuevoEstado) {

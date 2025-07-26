@@ -3,7 +3,15 @@ package utils;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement; // ¡Este import es importante!
+import java.sql.Statement;
+
+/**
+ * Clase de utilidad para gestionar la conexión única (Singleton) a la base de datos PostgreSQL.
+ * Se encarga de establecer la conexión y configurar el schema por defecto.
+ *
+ * @author Juan Lucero
+ * @version 1.0
+ */
 
 public class DatabaseConnection {
 
@@ -17,6 +25,13 @@ public class DatabaseConnection {
     private static final String URL = String.format("jdbc:postgresql://%s/%s?sslmode=require", HOST, DATABASE);
 
     private static Connection connection;
+
+    /**
+     * Obtiene la instancia de la conexión a la base de datos.
+     * Si la conexión no existe o está cerrada, crea una nueva.
+     *
+     * @return La instancia de la conexión (Connection) o null si falla.
+     */
 
     public static Connection getConnection() {
         try {

@@ -14,6 +14,15 @@ import java.net.URL;
 import java.sql.*;
 import java.util.ArrayList;
 
+/**
+ * Representa la interfaz de toma de pedidos.
+ * Esta ventana es utilizada por el Mesero para seleccionar platos de un menú visual,
+ * añadirlos a un carrito y registrar el pedido final en la base de datos.
+ *
+ * @author Juan Lucero
+ * @version 1.0
+ */
+
 public class Cliente extends JFrame {
 
     private JTabbedPane tabMenuPane;
@@ -72,6 +81,11 @@ public class Cliente extends JFrame {
         cargarMenuEnTabla();
     }
 
+    /**
+     * Constructor principal que inicializa la ventana de pedido para una mesa específica.
+     * @param idMesa El ID de la mesa para la cual se está creando el pedido.
+     */
+
     // CONSTRUCTOR que recibe el ID de la mesa
     public Cliente(int idMesa) {
         initComponents();
@@ -96,6 +110,13 @@ public class Cliente extends JFrame {
 
         btnRealizarPedido.addActionListener(e -> realizarPedido());
     }
+
+    /**
+     * Guarda el pedido actual en la base de datos.
+     * Ejecuta una transacción que inserta un registro en la tabla 'pedidos'
+     * y múltiples registros en 'detalle_pedidos'. Realiza commit o rollback
+     * para garantizar la integridad de los datos.
+     */
 
     private void realizarPedido() {
         if (carritoDeCompras.isEmpty()) {
@@ -167,6 +188,12 @@ public class Cliente extends JFrame {
         carritoDeCompras.clear();
         actualizarVistaCarrito();
     }
+
+    /**
+     * Carga el menú desde la tabla 'platos' y lo puebla en la JTable.
+     * Configura un TableModel personalizado para renderizar imágenes en la primera
+     * columna y un ButtonColumn para las acciones.
+     */
 
     private void cargarMenuEnTabla() {
         String[] titulosColumnas = {"Imagen", "Plato", "Descripción", "Precio ($)", "Acción"};
@@ -278,6 +305,11 @@ public class Cliente extends JFrame {
         }
         return null; // Devuelve null si no se encuentra la imagen
     }
+
+    /**
+     * Refresca la JList del carrito para mostrar los items añadidos,
+     * las cantidades y el total acumulado.
+     */
 
     private void actualizarVistaCarrito() {
         // Limpiamos la tabla del carrito
