@@ -16,6 +16,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  * Representa la ventana principal para el rol de Mesero (Cajero).
@@ -141,40 +146,113 @@ public class Cajero extends JFrame {
                     JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
                     null, options, options[0]);
 
-            switch (choice) {
-                case 0: // Generar Factura
-                    // Pedimos el porcentaje de propina
-                    String propinaStr = JOptionPane.showInputDialog(this, "Ingrese el porcentaje de propina (ej: 10):", "Facturar", JOptionPane.QUESTION_MESSAGE);
-                    try {
-                        double propina = Double.parseDouble(propinaStr);
+            if (choice == 0) { // Generar Factura
+                String propinaStr = JOptionPane.showInputDialog(this, "Ingrese el porcentaje de propina (ej: 10):", "Facturar", JOptionPane.QUESTION_MESSAGE);
+                try {
+                    double propina = Double.parseDouble(propinaStr);
 
-                        // Llamamos al procedimiento almacenado
-                        String sql = "CALL sp_facturar_mesa(?, ?)";
-                        try (Connection conn = DatabaseConnection.getConnection();
-                             CallableStatement cs = conn.prepareCall(sql)) {
+                    // LLAMAMOS AL PROCEDIMIENTO
+                    String sql = "CALL sp_facturar_mesa(?, ?, ?)";
+                    try (Connection conn = DatabaseConnection.getConnection();
+                         CallableStatement cs = conn.prepareCall(sql)) {
 
-                            cs.setInt(1, idMesa);
-                            cs.setDouble(2, propina);
-                            cs.execute();
+                        cs.setInt(1, idMesa);
+                        cs.setDouble(2, propina);
+                        cs.registerOutParameter(3, Types.INTEGER); // Registramos el parámetro de salida
+                        cs.execute();
 
-                            JOptionPane.showMessageDialog(this, "¡Mesa " + idMesa + " facturada con éxito!", "Facturación Completa", JOptionPane.INFORMATION_MESSAGE);
+                        int pedidoIdFacturado = cs.getInt(3); // Obtenemos el ID del pedido
 
-                        } catch (SQLException ex) {
-                            ex.printStackTrace();
-                            JOptionPane.showMessageDialog(this, "Error al facturar la mesa.\n" + ex.getMessage(), "Error de BD", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "¡Mesa " + idMesa + " facturada con éxito!", "Facturación Completa", JOptionPane.INFORMATION_MESSAGE);
+
+                        // PREGUNTAMOS SI DESEA EXPORTAR
+                        int exportar = JOptionPane.showConfirmDialog(this, "¿Desea exportar la factura a un archivo CSV?", "Exportar Factura", JOptionPane.YES_NO_OPTION);
+                        if (exportar == JOptionPane.YES_OPTION) {
+                            exportarFacturaCSV(pedidoIdFacturado);
                         }
 
-
-                        cargarEstadoMesas();
-
-                    } catch (NumberFormatException ex) {
-                        JOptionPane.showMessageDialog(this, "Por favor, ingrese un número válido para la propina.", "Error de Formato", JOptionPane.WARNING_MESSAGE);
-                    } catch (NullPointerException ex) {
-
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                        JOptionPane.showMessageDialog(this, "Error al facturar la mesa.\n" + ex.getMessage(), "Error de BD", JOptionPane.ERROR_MESSAGE);
                     }
-                    break;
-                case 2: // Cancelar
-                    break;
+                    cargarEstadoMesas();
+
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(this, "Por favor, ingrese un número válido para la propina.", "Error de Formato", JOptionPane.WARNING_MESSAGE);
+                } catch (NullPointerException ex) {
+                    // El usuario presionó cancelar en el diálogo de propina
+                }
+            }
+        }
+    }
+
+    // METODO PARA EXPORTAR A CSV
+    private void exportarFacturaCSV(int pedidoId) {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Guardar Factura CSV");
+        fileChooser.setSelectedFile(new File("factura_pedido_" + pedidoId + ".csv"));
+        fileChooser.setFileFilter(new FileNameExtensionFilter("Archivos CSV (*.csv)", "csv"));
+
+        if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+            File archivoGuardar = fileChooser.getSelectedFile();
+            StringBuilder csvData = new StringBuilder();
+
+            try (Connection conn = DatabaseConnection.getConnection()) {
+                // 1. Obtener datos de la cabecera del pedido
+                String sqlCabecera = "SELECT p.id, m.numero_mesa, u.nombre_completo, p.fecha_cierre, p.subtotal, p.propina, p.total " +
+                        "FROM pedidos p " +
+                        "JOIN mesas m ON p.mesa_id = m.id " +
+                        "JOIN usuarios u ON p.usuario_id_mesero = u.id " +
+                        "WHERE p.id = ?";
+                try (PreparedStatement pstmt = conn.prepareStatement(sqlCabecera)) {
+                    pstmt.setInt(1, pedidoId);
+                    ResultSet rs = pstmt.executeQuery();
+                    if (rs.next()) {
+                        csvData.append("Factura Pedido,").append(rs.getInt("id")).append("\n");
+                        csvData.append("Fecha,").append(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(rs.getTimestamp("fecha_cierre"))).append("\n");
+                        csvData.append("Mesa,").append(rs.getInt("numero_mesa")).append("\n");
+                        csvData.append("Atendido por,").append(rs.getString("nombre_completo")).append("\n\n");
+                    }
+                }
+
+                // 2. Obtener detalles del pedido
+                csvData.append("--- Detalle ---\n");
+                csvData.append("Cantidad,Producto,Precio Unitario,Subtotal\n");
+                String sqlDetalle = "SELECT d.cantidad, pl.nombre, d.precio_unitario_congelado, (d.cantidad * d.precio_unitario_congelado) as subtotal_linea " +
+                        "FROM detalle_pedidos d JOIN platos pl ON d.plato_id = pl.id " +
+                        "WHERE d.pedido_id = ?";
+                try (PreparedStatement pstmt = conn.prepareStatement(sqlDetalle)) {
+                    pstmt.setInt(1, pedidoId);
+                    ResultSet rs = pstmt.executeQuery();
+                    while (rs.next()) {
+                        csvData.append(rs.getInt("cantidad")).append(",");
+                        csvData.append("\"").append(rs.getString("nombre")).append("\","); // Comillas por si el nombre tiene comas
+                        csvData.append(rs.getDouble("precio_unitario_congelado")).append(",");
+                        csvData.append(rs.getDouble("subtotal_linea")).append("\n");
+                    }
+                }
+
+                // 3. Escribir los totales finales
+                try (PreparedStatement pstmt = conn.prepareStatement(sqlCabecera)) {
+                    pstmt.setInt(1, pedidoId);
+                    ResultSet rs = pstmt.executeQuery();
+                    if (rs.next()) {
+                        csvData.append("\n--- Totales ---\n");
+                        csvData.append("Subtotal:,$").append(String.format("%.2f", rs.getDouble("subtotal"))).append("\n");
+                        csvData.append("Propina:,$").append(String.format("%.2f", rs.getDouble("propina"))).append("\n");
+                        csvData.append("Total:,$").append(String.format("%.2f", rs.getDouble("total"))).append("\n");
+                    }
+                }
+
+                // 4. Escribir al archivo
+                try (FileWriter writer = new FileWriter(archivoGuardar)) {
+                    writer.write(csvData.toString());
+                    JOptionPane.showMessageDialog(this, "Factura exportada con éxito.", "Exportación Completa", JOptionPane.INFORMATION_MESSAGE);
+                }
+
+            } catch (SQLException | IOException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Error al exportar la factura.", "Error de Exportación", JOptionPane.ERROR_MESSAGE);
             }
         }
     }

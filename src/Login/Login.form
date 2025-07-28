@@ -13,6 +13,7 @@
           <grid row="1" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
+          <font name="Artifakt Element" size="16" style="0"/>
           <text value="Usuario"/>
         </properties>
       </component>
@@ -21,6 +22,7 @@
           <grid row="2" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
+          <font name="Artifakt Element" size="16" style="0"/>
           <text value="Contraseña"/>
         </properties>
       </component>
@@ -29,6 +31,7 @@
           <grid row="3" column="1" row-span="1" col-span="3" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
+          <font name="Artifakt Element" size="16" style="0"/>
           <text value="Ingresar"/>
         </properties>
       </component>
@@ -55,6 +58,7 @@
           <grid row="0" column="2" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
+          <font name="Artifakt Element" size="22" style="3"/>
           <text value="RESTAURANTE SIFood"/>
         </properties>
       </component>

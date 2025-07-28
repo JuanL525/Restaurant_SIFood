@@ -21,6 +21,7 @@
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
+              <font name="Artifakt Element" style="2"/>
               <text value="Label"/>
             </properties>
           </component>
@@ -29,6 +30,7 @@
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
+              <font name="Artifakt Element" style="3"/>
               <text value="Cerrar sesion"/>
             </properties>
           </component>
@@ -47,6 +49,7 @@
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
+              <font name="Artifakt Element" style="1"/>
               <text value="Mesa 1"/>
             </properties>
           </component>
@@ -55,6 +58,7 @@
               <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
+              <font name="Artifakt Element" style="1"/>
               <text value="Mesa 3"/>
             </properties>
           </component>
@@ -63,6 +67,7 @@
               <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
+              <font name="Artifakt Element" style="1"/>
               <text value="Mesa 6"/>
             </properties>
           </component>
@@ -71,6 +76,7 @@
               <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
+              <font name="Artifakt Element" style="1"/>
               <text value="Mesa 4"/>
             </properties>
           </component>
@@ -79,6 +85,7 @@
               <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
+              <font name="Artifakt Element" style="1"/>
               <text value="Mesa 5"/>
             </properties>
           </component>
@@ -87,6 +94,7 @@
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
+              <font name="Artifakt Element" style="1"/>
               <text value="Mesa 2"/>
             </properties>
           </component>
