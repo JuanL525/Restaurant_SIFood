@@ -9,9 +9,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f6882118-f1ab-4baa-8e17-c2be462df347" name="Changes" comment="colores añadidos">
+    <list default="true" id="f6882118-f1ab-4baa-8e17-c2be462df347" name="Changes" comment="pequeños cambios">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Cliente/Cliente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Cliente/Cliente.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,6 +58,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\HP\IdeaProjects\Restaurante_SIFood\Documentacion" />
       <recent name="C:\Users\HP\IdeaProjects\Restaurante_SIFood\Resources" />
     </key>
   </component>
@@ -119,7 +119,31 @@
       <option name="project" value="LOCAL" />
       <updated>1753817518157</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="pequeños cambios">
+      <option name="closed" value="true" />
+      <created>1753832077807</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1753832077807</updated>
+    </task>
+    <task id="LOCAL-00008" summary="pequeños cambios">
+      <option name="closed" value="true" />
+      <created>1753832105067</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1753832105067</updated>
+    </task>
+    <task id="LOCAL-00009" summary="pequeños cambios">
+      <option name="closed" value="true" />
+      <created>1753832150717</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1753832150717</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -129,6 +153,7 @@
     <MESSAGE value="java doc agregado" />
     <MESSAGE value="exportar a csv añadido" />
     <MESSAGE value="colores añadidos" />
-    <option name="LAST_COMMIT_MESSAGE" value="colores añadidos" />
+    <MESSAGE value="pequeños cambios" />
+    <option name="LAST_COMMIT_MESSAGE" value="pequeños cambios" />
   </component>
 </project>

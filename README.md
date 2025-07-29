@@ -1,4 +1,4 @@
-SIFood - Sistema de Gestión de Restaurante 
+# Proyecto: Restaurante SIFood - Sistema de Gestión de Restaurante 
 Descripción
 SIFOOD es una aplicación de escritorio completa para la gestión integral de un restaurante, desarrollada como proyecto académico. El sistema ofrece una solución robusta para la administración de personal, menús, inventario y el flujo completo de atención al cliente, desde la asignación de mesas hasta la facturación.
 
@@ -29,7 +29,7 @@ Carrito de Compras: Un resumen del pedido actual que se actualiza en tiempo real
 
 Registro de Pedidos: Guarda la orden en la base de datos de forma transaccional y segura.
 
-Tecnologías Utilizadas
+# Tecnologías Utilizadas
 Lenguaje: Java (OpenJDK 21)
 
 Interfaz Gráfica (Frontend): Java Swing
@@ -47,7 +47,7 @@ Empaquetado: Launch4j (para la creación del .exe)
 Instalación y Puesta en Marcha
 Para ejecutar este proyecto en un entorno de desarrollo, sigue estos pasos:
 
-Prerrequisitos:
+# Prerrequisitos:
 
 Tener instalado un JDK 21 o superior.
 
@@ -78,23 +78,22 @@ Haz clic en + -> JARs or Directories... y añade la librería de PostgreSQL que 
 
 Navega al archivo src/utils/DatabaseConnection.java y actualiza las constantes HOST, DATABASE, USER y PASSWORD con las credenciales de tu base de datos.
 
-Ejecutar la Aplicación:
+# Ejecutar la Aplicación:
 
 Encuentra la clase Main.java y haz clic derecho -> Run 'Main.main()'.
 
 Uso de la Aplicación
 Una vez ejecutada la aplicación, puedes usar las siguientes credenciales de ejemplo (basadas en el script SQL) para probar los diferentes roles:
 
+# Credenciales
 Usuario Administrador:
 
 Usuario: admin
-
 Contraseña: 123
 
 Usuario Mesero:
 
 Usuario: juan
-
 Contraseña: 123
 
 Autor
