@@ -227,7 +227,7 @@ public class Cliente extends JFrame {
             while (rs.next()) {
                 // Obtenemos el nombre del archivo de la imagen
                 String nombreImagen = rs.getString("imagen_nombre");
-                // Cargamos la imagen como un ImageIcon
+                // Cargamos la imagen
                 ImageIcon iconoPlato = cargarImagenPlato(nombreImagen, 100, 100);
 
                 // Creamos la fila, AÑADIENDO EL ICONO AL PRINCIPIO

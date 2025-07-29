@@ -9,12 +9,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f6882118-f1ab-4baa-8e17-c2be462df347" name="Changes" comment="exportar a csv añadido">
+    <list default="true" id="f6882118-f1ab-4baa-8e17-c2be462df347" name="Changes" comment="colores añadidos">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Administrador/Administrador.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Administrador/Administrador.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Cajero/Cajero.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Cajero/Cajero.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Cliente/Cliente.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Cliente/Cliente.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Login/Login.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Login/Login.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Cliente/Cliente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Cliente/Cliente.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,20 +42,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/HP/Downloads/postgresql-42.7.6.jar&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/HP/Downloads/postgresql-42.7.6.jar",
+    "project.structure.last.edited": "Artifacts",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.lookFeel"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\HP\IdeaProjects\Restaurante_SIFood\Resources" />
@@ -113,7 +111,15 @@
       <option name="project" value="LOCAL" />
       <updated>1753733365882</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="colores añadidos">
+      <option name="closed" value="true" />
+      <created>1753817518157</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1753817518157</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -122,6 +128,7 @@
     <MESSAGE value="cambios pequeños agregados" />
     <MESSAGE value="java doc agregado" />
     <MESSAGE value="exportar a csv añadido" />
-    <option name="LAST_COMMIT_MESSAGE" value="exportar a csv añadido" />
+    <MESSAGE value="colores añadidos" />
+    <option name="LAST_COMMIT_MESSAGE" value="colores añadidos" />
   </component>
 </project>
