@@ -9,12 +9,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f6882118-f1ab-4baa-8e17-c2be462df347" name="Changes" comment="java doc agregado">
+    <list default="true" id="f6882118-f1ab-4baa-8e17-c2be462df347" name="Changes" comment="exportar a csv añadido">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Administrador/Administrador.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Administrador/Administrador.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Administrador/Administrador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Administrador/Administrador.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Cajero/Cajero.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Cajero/Cajero.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Cajero/Cajero.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Cajero/Cajero.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Cliente/Cliente.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Cliente/Cliente.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Login/Login.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Login/Login.form" afterDir="false" />
     </list>
@@ -107,7 +105,15 @@
       <option name="project" value="LOCAL" />
       <updated>1753572042469</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="exportar a csv añadido">
+      <option name="closed" value="true" />
+      <created>1753733365882</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1753733365882</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -115,6 +121,7 @@
     <MESSAGE value="imagenes agregadas" />
     <MESSAGE value="cambios pequeños agregados" />
     <MESSAGE value="java doc agregado" />
-    <option name="LAST_COMMIT_MESSAGE" value="java doc agregado" />
+    <MESSAGE value="exportar a csv añadido" />
+    <option name="LAST_COMMIT_MESSAGE" value="exportar a csv añadido" />
   </component>
 </project>

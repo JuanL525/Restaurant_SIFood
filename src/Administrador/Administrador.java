@@ -54,7 +54,7 @@ public class Administrador extends JFrame {
         super("Panel de Administrador");
         setContentPane(AdminPanel);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // DISPOSE para no cerrar toda la app
-        setSize(650, 350);
+        setSize(650, 320);
         setLocationRelativeTo(null);
 
         // Hacemos que el JTextArea no sea editable y tenga un texto inicial

@@ -24,7 +24,9 @@
             <constraints>
               <tabbedpane title="Menú"/>
             </constraints>
-            <properties/>
+            <properties>
+              <background color="-657956"/>
+            </properties>
             <border type="none"/>
             <children>
               <component id="a17d6" class="javax.swing.JTable" binding="tableMenu">
@@ -44,7 +46,10 @@
             <constraints>
               <tabbedpane title="Carrito"/>
             </constraints>
-            <properties/>
+            <properties>
+              <background color="-657956"/>
+              <foreground color="-657956"/>
+            </properties>
             <border type="none"/>
             <children>
               <component id="ebb42" class="javax.swing.JList" binding="lstCarrito">
@@ -62,6 +67,7 @@
                   <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
+                  <background color="-4261121"/>
                   <font name="Artifakt Element" style="0"/>
                   <text value="Realizar pedido"/>
                 </properties>
