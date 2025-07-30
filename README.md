@@ -45,38 +45,38 @@ Herramientas de BD: pgAdmin 4, dbdiagram.io
 Empaquetado: Launch4j (para la creación del .exe)
 
 Instalación y Puesta en Marcha
-Para ejecutar este proyecto en un entorno de desarrollo, sigue estos pasos:
+# Para ejecutar este proyecto en un entorno de desarrollo, sigue estos pasos:
 
-# Prerrequisitos:
+* Prerrequisitos:
 
-Tener instalado un JDK 21 o superior.
+* Tener instalado un JDK 21 o superior.
 
-Tener un servidor de PostgreSQL accesible (puede ser local o en la nube).
+* Tener un servidor de PostgreSQL accesible (puede ser local o en la nube).
 
-Tener Git instalado.
+* Tener Git instalado.
 
-Clonar el Repositorio:
+* Clonar el Repositorio:
 
-git clone https://github.com/JuanL525/Restaurant_SIFood.git
+* git clone https://github.com/JuanL525/Restaurant_SIFood.git
 cd Restaurante_SIFood
 
-Configurar la Base de Datos:
+* Configurar la Base de Datos:
 
-Crea una nueva base de datos en tu servidor PostgreSQL.
+* Crea una nueva base de datos en tu servidor PostgreSQL.
 
-Abre el archivo SIFood_DB.sql que se encuentra en el repositorio.
+* Abre el archivo SIFood_DB.sql que se encuentra en el repositorio.
 
-Ejecuta el script completo en tu nueva base de datos usando pgAdmin. Esto creará todas las tablas, vistas, procedimientos y datos de ejemplo.
+* Ejecuta el script completo en tu nueva base de datos usando pgAdmin. Esto creará todas las tablas, vistas, procedimientos y datos de ejemplo.
 
-Configurar el Proyecto en IntelliJ IDEA:
+* Configurar el Proyecto en IntelliJ IDEA:
 
-Abre IntelliJ y selecciona File -> Open... y elige la carpeta Restaurante_SIFood que clonaste.
+* Abre IntelliJ y selecciona File -> Open... y elige la carpeta Restaurante_SIFood que clonaste.
 
-Ve a File -> Project Structure... -> Modules -> Dependencies.
+* Ve a File -> Project Structure... -> Modules -> Dependencies.
 
-Haz clic en + -> JARs or Directories... y añade la librería de PostgreSQL que se encuentra en la carpeta /lib.
+* Haz clic en + -> JARs or Directories... y añade la librería de PostgreSQL que se encuentra en la carpeta /lib.
 
-Navega al archivo src/utils/DatabaseConnection.java y actualiza las constantes HOST, DATABASE, USER y PASSWORD con las credenciales de tu base de datos.
+* Navega al archivo src/utils/DatabaseConnection.java y actualiza las constantes HOST, DATABASE, USER y PASSWORD con las credenciales de tu base de datos.
 
 # Ejecutar la Aplicación:
 
