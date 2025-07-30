@@ -821,7 +821,6 @@ $$;
 
 
 
--- Asegúrate de estar en el schema correcto
 SET search_path TO sifood_schema;
 
 CREATE OR REPLACE PROCEDURE sp_facturar_mesa(

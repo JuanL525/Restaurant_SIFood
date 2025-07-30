@@ -11,6 +11,7 @@
   <component name="ChangeListManager">
     <list default="true" id="f6882118-f1ab-4baa-8e17-c2be462df347" name="Changes" comment="pequeños cambios">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SIFood_DB.sql" beforeDir="false" afterPath="$PROJECT_DIR$/SIFood_DB.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,6 +59,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\HP\IdeaProjects\Restaurante_SIFood" />
       <recent name="C:\Users\HP\IdeaProjects\Restaurante_SIFood\Documentacion" />
       <recent name="C:\Users\HP\IdeaProjects\Restaurante_SIFood\Resources" />
     </key>
@@ -159,7 +161,15 @@
       <option name="project" value="LOCAL" />
       <updated>1753882831008</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="pequeños cambios">
+      <option name="closed" value="true" />
+      <created>1753883810450</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1753883810450</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
