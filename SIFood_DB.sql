@@ -30,7 +30,7 @@ COMMENT ON ROLE operador_app IS 'Rol para la aplicación SIFood. Tiene permisos 
 CREATE ROLE auditor_db WITH LOGIN PASSWORD 'auditor_pass_secure';
 COMMENT ON ROLE auditor_db IS 'Rol de solo lectura para fines de auditoría y análisis de datos.';
 
--- Roles adicionales para demostración de privilegios granulares
+-- Roles adicionales para demostración de privilegios
 CREATE ROLE proveedor_externo;
 CREATE ROLE cliente_fidelizado;
 
@@ -81,7 +81,7 @@ CREATE TABLE usuarios (
     -- Validación a nivel de BD para el formato del nombre de usuario
     CONSTRAINT chk_nombre_usuario_formato CHECK (nombre_usuario ~ '^[a-zA-Z0-9_]{4,20}$')
 );
-COMMENT ON TABLE usuarios IS 'Usuarios que pueden iniciar sesión en la aplicación SIFood (no son los roles de BD).';
+COMMENT ON TABLE usuarios IS 'Usuarios que pueden iniciar sesión en la aplicación SIFood';
 
 CREATE TABLE mesas (
     id SERIAL PRIMARY KEY,
@@ -181,7 +181,7 @@ REVOKE INSERT, DELETE ON ingredientes FROM proveedor_externo;
 -- SECCIÓN 5: FUNCIONES Y TRIGGERS PARA AUDITORÍA 
 -- #############################################################################
 
--- Función Genérica para Auditoría
+-- Función para Auditoría
 CREATE OR REPLACE FUNCTION fn_log_acciones()
 RETURNS TRIGGER AS $$
 DECLARE
@@ -816,5 +816,44 @@ BEGIN
     UPDATE mesas SET estado = 'disponible' WHERE id = p_mesa_id;
 
     RAISE NOTICE 'Mesa % facturada correctamente. Pedido ID: %.', p_mesa_id, v_pedido_id;
+END;
+$$;
+
+
+
+-- Asegúrate de estar en el schema correcto
+SET search_path TO sifood_schema;
+
+CREATE OR REPLACE PROCEDURE sp_facturar_mesa(
+    p_mesa_id INT,
+    p_porcentaje_propina DOUBLE PRECISION,
+    OUT p_pedido_id_salida INT -- PARÁMETRO DE SALIDA
+) LANGUAGE plpgsql AS $$
+DECLARE
+    v_subtotal NUMERIC;
+BEGIN
+    -- Encontrar el pedido activo para la mesa
+    SELECT id INTO p_pedido_id_salida FROM pedidos WHERE mesa_id = p_mesa_id AND fecha_cierre IS NULL;
+    IF NOT FOUND THEN
+        RAISE EXCEPTION 'La mesa no tiene un pedido activo para facturar.';
+    END IF;
+
+    -- Calcular subtotal
+    SELECT SUM(cantidad * precio_unitario_congelado) INTO v_subtotal
+    FROM detalle_pedidos WHERE pedido_id = p_pedido_id_salida;
+
+    -- Actualizar el pedido con los totales
+    UPDATE pedidos SET
+        subtotal = v_subtotal,
+        propina = v_subtotal * (p_porcentaje_propina / 100.0),
+        total = v_subtotal * (1 + p_porcentaje_propina / 100.0),
+        fecha_cierre = CURRENT_TIMESTAMP,
+        estado_id = (SELECT id FROM estados_pedido WHERE nombre = 'Pagado')
+    WHERE id = p_pedido_id_salida;
+    
+    -- Liberar la mesa
+    UPDATE mesas SET estado = 'disponible' WHERE id = p_mesa_id;
+
+    RAISE NOTICE 'Mesa % facturada correctamente. Pedido ID: %.', p_mesa_id, p_pedido_id_salida;
 END;
 $$;
